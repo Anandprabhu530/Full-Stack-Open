@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-var index = 0;
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -21,24 +21,40 @@ const App = () => {
     while (anecdotes[random_value] === anecdotes[random_value - 1]) {
       random_value = Math.floor(Math.random() * anecdotes.length);
     }
-    index = random_value;
     setSelected(random_value);
   };
   const voting = () => {
     const arr = [...vote];
-    arr[index] += 1;
-    console.log(arr);
+    arr[selected] += 1;
     setvote(arr);
   };
   return (
     <div>
-      {anecdotes[selected]} has {vote[index]} votes
+      <b>Anecdotes of the day</b>
+      <div>
+        {anecdotes[selected]} has {vote[selected]} votes
+      </div>
       <div>
         <button onClick={randomizer}>Randon anecdotes</button>
         <button onClick={voting}>Vote</button>
       </div>
+      <b>Anecdotes with most votes</b>
+      <Maxvotes anecdotes={anecdotes} vote={vote} />
     </div>
   );
 };
 
+const Maxvotes = ({ anecdotes, vote }) => {
+  const mostvote = Math.max(...vote);
+  const maxindex = vote.indexOf(mostvote);
+  const out = anecdotes[maxindex];
+  if (mostvote === 0) {
+    return <div>No Votes Yet</div>;
+  }
+  return (
+    <div>
+      {out} has {mostvote} votes.
+    </div>
+  );
+};
 export default App;
