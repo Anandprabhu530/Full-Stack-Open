@@ -6,9 +6,9 @@ Full Stack Open is really a great course if you are into full Stack Development.
 
 You can check it out here: https://fullstackopen.com/en/
 
-I have created seperate branche for seperate part exercises.(In order to get more familiar with git)
+I have created different branches for different exercises (In order to get more familiar with git).
 
-Make sure to check all out.Thank you:blush:.
+Make sure to check out.Thank you:blush:.
 
 Also if you find any error, Please create PR and help me with it :heart_eyes:.
 
