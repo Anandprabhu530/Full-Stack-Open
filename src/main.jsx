@@ -1,4 +1,5 @@
 // import React from "react";
+
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 
@@ -21,5 +22,5 @@ const notes = [
 ];
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <App notes={notes} />
+  <App key={0} notes={notes} />
 );
