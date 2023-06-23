@@ -1,46 +1,49 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-key */
 
 import { useState } from "react";
-import Note from "./components/Note";
 
-const App = (props) => {
-  const [notes, setnotes] = useState(props.notes);
-  const [newnote, setnewnote] = useState("");
-  const [show, setshow] = useState(true);
-
-  const toshow = show ? notes : notes.filter((note) => note.important === true);
-
-  const clicked = (event) => {
-    event.preventDefault();
-    const obj = {
-      content: newnote,
-      important: Math.random() < 0.5,
-      id: newnote.id + 1,
-    };
-    setnotes(notes.concat(obj));
-    setnewnote("");
-  };
-
-  const handlechange = (event) => {
-    setnewnote(event.target.value);
-  };
+const Display = ({ person }) => {
   return (
     <div>
-      <h1>Notes</h1>
-      <div>
-        <button onClick={() => setshow(!show)}>
-          {show ? "Important" : "Show all"}
-        </button>
-      </div>
-      <ul>
-        {toshow.map((note, i) => (
-          <Note key={i} note={note} />
-        ))}
-      </ul>
-      <form onSubmit={clicked}>
-        <input value={newnote} onChange={handlechange} />
-        <button type="submit">Add</button>
+      <li>{person.name}</li>
+    </div>
+  );
+};
+const App = () => {
+  const [persons, setPersons] = useState([{ name: "Default User" }]);
+  const [newName, setNewName] = useState("");
+
+  const handlechange = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const adder = (event) => {
+    if (newName.length === 0) {
+      event.preventDefault();
+      return;
+    }
+    event.preventDefault();
+    const temp = {
+      name: newName,
+    };
+    setPersons(persons.concat(temp));
+    setNewName("");
+  };
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={adder}>
+        <input value={newName} onChange={handlechange} />
+        <button type="submit">add</button>
       </form>
+      <h2>Numbers</h2>
+      <div>
+        {persons.map((person, i) => (
+          <Display key={i} person={person} />
+        ))}
+      </div>
     </div>
   );
 };
