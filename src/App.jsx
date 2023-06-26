@@ -19,12 +19,17 @@ const App = () => {
     { name: "Dan Abramov", number: "12-43-234345", id: 3 },
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
-
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [newfilter, setNewFilter] = useState("");
+  const [showfilter, setshowfilter] = useState(true);
 
   const handlechange = (event) => {
     setNewName(event.target.value);
+  };
+
+  const handleFilter = (event) => {
+    setNewFilter(event.target.value);
   };
 
   const handlechangeNumber = (event) => {
@@ -54,9 +59,26 @@ const App = () => {
     setNewNumber("");
   };
 
+  const filterpersons = showfilter
+    ? persons
+    : persons.filter((person) => person.name.startsWith(newfilter));
+
+  const controlshow = (event) => {
+    event.preventDefault();
+    setshowfilter(!showfilter);
+  };
   return (
     <div>
       <h1>Phonebook</h1>
+      <form>
+        <div>
+          Filter shown with
+          <input value={newfilter} onChange={handleFilter} />
+        </div>
+        <button onClick={controlshow} type="submit">
+          Search
+        </button>
+      </form>
       <h2>Add a New</h2>
       <form onSubmit={adder}>
         <div>
@@ -71,7 +93,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map((person, i) => (
+        {filterpersons.map((person, i) => (
           <Display key={i} person={person} />
         ))}
       </div>
